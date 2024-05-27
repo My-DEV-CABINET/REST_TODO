@@ -44,6 +44,7 @@ extension ToDoView {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .systemBackground
+        hideKeyboardWhenTappedAround()
         setupUI()
         bind()
         input.send(.requestGETTodos)
@@ -422,6 +423,8 @@ extension ToDoView: UITableViewDataSource {
 
 extension ToDoView: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+        
         let key = viewModel.sortedSectionKeys[indexPath.section]
         let todo = viewModel.groupedTodos[key]?[indexPath.row]
 
@@ -437,7 +440,7 @@ extension ToDoView: UITableViewDelegate {
 
         if let id = todo?.id {
             let action = UIContextualAction(style: .destructive, title: "DELETE") { [weak self] (action, view, success) in
-                self?.input.send(.requestDELETEToDoAPI(id: id))
+                self?.input.send(.requestDELETEToDo(id: id))
             }
             action.image = UIImage(systemName: "trash")
             action.backgroundColor = UIColor.systemRed
@@ -488,7 +491,7 @@ extension ToDoView: UITableViewDelegate {
 
         } else if offsetY < 0, searchController.isActive == true {
             guard let text = searchController.searchBar.text else { return }
-            input.send(.requestGETSearchToDosAPI(query: text))
+            input.send(.requestGETSearchToDos(query: text))
         }
     }
 
@@ -547,7 +550,7 @@ extension ToDoView: UISearchBarDelegate {
 
         guard let searchText = searchBar.text, !searchText.isEmpty else { return }
         searchController.isActive = true
-        input.send(.requestGETSearchToDosAPI(query: searchText))
+        input.send(.requestGETSearchToDos(query: searchText))
     }
 
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
@@ -570,7 +573,7 @@ extension ToDoView: ToDoCellDelegate {
 
         let currentOffset = tableView.contentOffset
 
-        input.send(.requestPUTToDoAPI(todo: updateToDo))
+        input.send(.requestPUTToDo(todo: updateToDo))
 
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
             self.tableView.setContentOffset(currentOffset, animated: true)

@@ -26,9 +26,9 @@ final class ToDoViewModel: ViewModelType {
 
     enum Input {
         case requestGETTodos
-        case requestGETSearchToDosAPI(query: String)
-        case requestPUTToDoAPI(todo: ToDoData)
-        case requestDELETEToDoAPI(id: Int)
+        case requestGETSearchToDos(query: String)
+        case requestPUTToDo(todo: ToDoData)
+        case requestDELETEToDo(id: Int)
         case requestGoToEdit(id: Int)
 
         case requestHideComplete
@@ -77,13 +77,13 @@ extension ToDoViewModel {
                     self?.requestGETTodos()
                 }
 
-            case .requestGETSearchToDosAPI(let query):
+            case .requestGETSearchToDos(let query):
                 self?.requestGETSearchToDosAPI(query: query)
 
-            case .requestPUTToDoAPI(let todo):
+            case .requestPUTToDo(let todo):
                 self?.requestPUTToDoAPI(todo: todo)
 
-            case .requestDELETEToDoAPI(let id):
+            case .requestDELETEToDo(let id):
                 self?.requestDELETEToDoAPI(id: id)
 
             case .requestGoToEdit(let id):
@@ -113,12 +113,7 @@ extension ToDoViewModel {
 
     /// ToDo 데이터 10개 호출 - 완료 숨김 X
     private func requestGETTodos() {
-        let api = GETTodosAPI(
-            page: page.description,
-            filter: Filter.createdAt.rawValue,
-            orderBy: Order.desc.rawValue,
-            perPage: 10.description
-        )
+        guard let api = APICase.getTodos(page: page).api as? GETTodosAPI else { return }
 
         apiService.request(api)
             .sink { completion in
@@ -130,21 +125,15 @@ extension ToDoViewModel {
                     print("#### Finished \(completion)")
                 }
             } receiveValue: { [weak self] response in
-                self?.todos = response.data
-                self?.output.send(.showGETTodos(todos: response.data ?? []))
+                self?.todos = response.data ?? []
+                self?.output.send(.showGETTodos(todos: self?.todos ?? []))
             }
             .store(in: &subcriptions)
     }
 
     /// ToDo 데이터 10개 호출 - 완료 숨김 O
     private func requestGETNonCompletedTodos() {
-        let api = GETHideCompletedTodosAPI(
-            page: page.description,
-            filter: Filter.createdAt.rawValue,
-            orderBy: Order.desc.rawValue,
-            perPage: 10.description,
-            isDone: false.description
-        )
+        guard let api = APICase.getNonCompletedTodos(page: page, isDone: false).api as? GETHideCompletedTodosAPI else { return }
 
         apiService.request(api)
             .sink { completion in
@@ -167,7 +156,7 @@ extension ToDoViewModel {
     private func requestGETSearchToDosAPI(query: String) {
         resetPageCount()
         let dto = ToDoQueryDTO(query: query, page: page.description, filter: Filter.createdAt.rawValue, orderBy: Order.desc.rawValue, perPage: 10.description)
-        let api = GETSearchToDosAPI(dto: dto)
+        guard let api = APICase.getSearchTodos(dto: dto).api as? GETSearchToDosAPI else { return }
 
         apiService.request(api)
             .sink { completion in
@@ -188,13 +177,13 @@ extension ToDoViewModel {
     /// ToDo 데이터 업데이트
     /// - Parameter todo: 변경할 ToDo 데이터
     private func requestPUTToDoAPI(todo: ToDoData) {
-        guard let title = todo.title else { return }
-        guard let isDone = todo.isDone else { return }
-        guard let id = todo.id else { return }
+        guard let title = todo.title,
+              let isDone = todo.isDone,
+              let id = todo.id else { return }
 
         let idDTO = ToDoIDDTO(id: id.description)
         let bodyDTO = ToDoBodyDTO(title: title, is_Done: isDone)
-        let api = PUTToDoAPI(idDTO: idDTO, bodyDTO: bodyDTO)
+        guard let api = APICase.putToDo(idDTO: idDTO, bodyDTO: bodyDTO).api as? PUTToDoAPI else { return }
 
         apiService.requestWithEncoded(api)
             .sink { completion in
@@ -220,7 +209,7 @@ extension ToDoViewModel {
     /// - Parameter id: 삭제할 ToDo 데이터의 ID 값
     private func requestDELETEToDoAPI(id: Int) {
         let dto = ToDoIDDTO(id: id.description)
-        let api = DELETEToDoAPI(dto: dto)
+        guard let api = APICase.deleteTodo(dto: dto).api as? DELETEToDoAPI else { return }
 
         apiService.request(api)
             .sink { completion in
@@ -244,7 +233,7 @@ extension ToDoViewModel {
 
     /// 무한 스크롤링 - 검색 X, 완료 숨김 X
     private func requestScrolling() {
-        let api = GETTodosAPI(page: page.description, filter: Filter.createdAt.rawValue, orderBy: Order.desc.rawValue, perPage: 10.description)
+        guard let api = APICase.infiniteScrolling(page: page).api as? GETTodosAPI else { return }
 
         apiService.request(api)
             .sink { completion in
@@ -265,13 +254,7 @@ extension ToDoViewModel {
 
     /// 무한 스크롤링 - 검색 X, 완료 숨김 O
     private func requestScrollingNonCompleted() {
-        let api = GETHideCompletedTodosAPI(
-            page: page.description,
-            filter: Filter.createdAt.rawValue,
-            orderBy: Order.desc.rawValue,
-            perPage: 10.description,
-            isDone: false.description
-        )
+        guard let api = APICase.infiniteScrollingNonCompleted(page: page, isDone: false).api as? GETHideCompletedTodosAPI else { return }
 
         apiService.request(api)
             .sink { completion in
@@ -292,7 +275,7 @@ extension ToDoViewModel {
     /// 무한 스크롤링 - 검색 O - 완료 여부 숨김 처리 X
     private func requestScrollingWithQuery(query: String) {
         let dto = ToDoQueryDTO(query: query, page: page.description, filter: Filter.createdAt.rawValue, orderBy: Order.desc.rawValue, perPage: 10.description)
-        let api = GETSearchToDosAPI(dto: dto)
+        guard let api = APICase.infiniteScrollingWithQuery(dto: dto).api as? GETSearchToDosAPI else { return }
 
         apiService.request(api)
             .sink { completion in

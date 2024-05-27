@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4E2062B62C0423650065592C /* APICase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E2062B52C0423650065592C /* APICase.swift */; };
+		4E2062B82C04423C0065592C /* Extension+UIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E2062B72C04423C0065592C /* Extension+UIViewController.swift */; };
 		4E28FB302BFC085200386215 /* Extension+URLRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E28FB2F2BFC085200386215 /* Extension+URLRequest.swift */; };
 		4E490E0C2BFE979E000665F7 /* ActivityIndicatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E490E0B2BFE979E000665F7 /* ActivityIndicatorView.swift */; };
 		4E490E112BFEAE64000665F7 /* Favorite.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E490E102BFEAE64000665F7 /* Favorite.swift */; };
@@ -54,6 +56,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		4E2062B52C0423650065592C /* APICase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APICase.swift; sourceTree = "<group>"; };
+		4E2062B72C04423C0065592C /* Extension+UIViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extension+UIViewController.swift"; sourceTree = "<group>"; };
 		4E28FB2F2BFC085200386215 /* Extension+URLRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extension+URLRequest.swift"; sourceTree = "<group>"; };
 		4E490E0B2BFE979E000665F7 /* ActivityIndicatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityIndicatorView.swift; sourceTree = "<group>"; };
 		4E490E102BFEAE64000665F7 /* Favorite.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Favorite.swift; sourceTree = "<group>"; };
@@ -162,6 +166,7 @@
 			children = (
 				4E7C5D792BF8554600A4AE33 /* ToDos.swift */,
 				4E490E102BFEAE64000665F7 /* Favorite.swift */,
+				4E8DBCFE2BFF38DD003E44DD /* API */,
 				4E8649552BF909F30099DFB5 /* DTO */,
 			);
 			path = Model;
@@ -232,7 +237,6 @@
 			children = (
 				4E86494D2BF8FC080099DFB5 /* APIService.swift */,
 				4E490E122BFEAE92000665F7 /* DBManager.swift */,
-				4E8DBCFE2BFF38DD003E44DD /* API */,
 			);
 			path = Service;
 			sourceTree = "<group>";
@@ -249,6 +253,7 @@
 		4E8DBCFE2BFF38DD003E44DD /* API */ = {
 			isa = PBXGroup;
 			children = (
+				4E2062B52C0423650065592C /* APICase.swift */,
 				4E89298C2BFAB43500316E42 /* NetworkAPIDefinition.swift */,
 				4E8DBCFF2BFF3901003E44DD /* GETAPI.swift */,
 				4E8DBD012BFF3955003E44DD /* POSTAPI.swift */,
@@ -294,6 +299,7 @@
 				4EFF4EBD2BF9B5B6006EC07C /* Extension+String.swift */,
 				4E9939572BFB9EE30087AA39 /* Extension+UIColor.swift */,
 				4E28FB2F2BFC085200386215 /* Extension+URLRequest.swift */,
+				4E2062B72C04423C0065592C /* Extension+UIViewController.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -365,7 +371,7 @@
 			);
 			mainGroup = 4EE6F0852BF51A420043D833;
 			packageReferences = (
-				4E490E0F2BFEADA4000665F7 /* XCRemoteSwiftPackageReference "sqlite" */,
+				4E344ABD2C00849E003A74C8 /* XCRemoteSwiftPackageReference "sqlite" */,
 			);
 			productRefGroup = 4EE6F08F2BF51A420043D833 /* Products */;
 			projectDirPath = "";
@@ -417,6 +423,7 @@
 				4E8649592BF90A0E0099DFB5 /* ToDoBodyDTO.swift in Sources */,
 				4E8DBD022BFF3955003E44DD /* POSTAPI.swift in Sources */,
 				4E8649342BF8CCD80099DFB5 /* AppCoordinator.swift in Sources */,
+				4E2062B82C04423C0065592C /* Extension+UIViewController.swift in Sources */,
 				4EE6F0962BF51A420043D833 /* ToDoView.swift in Sources */,
 				4EE6F0922BF51A420043D833 /* AppDelegate.swift in Sources */,
 				4E8649572BF909FC0099DFB5 /* ToDoGETDTO.swift in Sources */,
@@ -439,6 +446,7 @@
 				4E86493A2BF8D9710099DFB5 /* DICProtocol.swift in Sources */,
 				4E7C5D852BF85CDA00A4AE33 /* DetailToDoView.swift in Sources */,
 				4E9939582BFB9EE30087AA39 /* Extension+UIColor.swift in Sources */,
+				4E2062B62C0423650065592C /* APICase.swift in Sources */,
 				4E8DBD002BFF3901003E44DD /* GETAPI.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -721,12 +729,12 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		4E490E0F2BFEADA4000665F7 /* XCRemoteSwiftPackageReference "sqlite" */ = {
+		4E344ABD2C00849E003A74C8 /* XCRemoteSwiftPackageReference "sqlite" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/sqlite/sqlite.git";
 			requirement = {
-				branch = master;
-				kind = branch;
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.0.0;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */

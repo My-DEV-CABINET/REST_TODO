@@ -66,6 +66,7 @@ extension DetailToDoView {
         super.viewDidLoad()
         setupUI()
         bind()
+        hideKeyboardWhenTappedAround()
     }
 
     override func viewWillAppear(_ animated: Bool) {

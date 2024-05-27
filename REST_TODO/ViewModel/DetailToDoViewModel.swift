@@ -59,7 +59,7 @@ extension DetailToDoViewModel {
     private func requestGETToDo() {
         guard let id = id else { return }
         let dto = ToDoIDDTO(id: id.description)
-        let api = GETTodoAPI(dto: dto)
+        guard let api = APICase.getTodo(dto: dto).api as? GETTodoAPI else { return }
 
         apiService.request(api)
             .sink { completion in
@@ -83,7 +83,7 @@ extension DetailToDoViewModel {
     ///   - isDone: View's UISwitch isOn
     private func requestPOSTToDoAPI(title: String, isDone: Bool) {
         let dto = ToDoBodyDTO(title: title, is_Done: isDone)
-        let api = POSTToDoAPI(dto: dto)
+        guard let api = APICase.postTodo(dto: dto).api as? POSTToDoAPI else { return }
 
         apiService.request(api)
             .sink { completion in
@@ -108,7 +108,7 @@ extension DetailToDoViewModel {
 
         let idDTO = ToDoIDDTO(id: id.description)
         let bodyDTO = ToDoBodyDTO(title: title, is_Done: isDone)
-        let api = PUTToDoAPI(idDTO: idDTO, bodyDTO: bodyDTO)
+        guard let api = APICase.putToDo(idDTO: idDTO, bodyDTO: bodyDTO).api as? PUTToDoAPI else { return }
 
         apiService.requestWithEncoded(api)
             .sink { completion in
