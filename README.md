@@ -1838,7 +1838,6 @@ DB 에 내가 만든 String 값을 넣은 후 실행, 그리고 DB에 일치하�
 
 </div>
 </details>
-<<<<<<< HEAD
 
 <details>
 <summary>생성한 Network 통신 API 관리 문제</summary>
@@ -1926,5 +1925,3 @@ let api = ToDoAPI.getTodos(page: page).api as! GETTodosAPI
 
 </div>
 </details>
-=======
->>>>>>> 0ebe9d62ffd74106f7fecf81c5e66c90db4cbe9c
