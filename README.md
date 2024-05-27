@@ -38,6 +38,12 @@ REST API 를 사용하여 나만의 할 일을 만들 수 있습니다.
 
 ## 💣Trouble Shooting
 
+<<<<<<< HEAD
+
+=======
+
+> > > > > > > 0ebe9d62ffd74106f7fecf81c5e66c90db4cbe9c
+
 <details>
 <summary>Info.plist 위치 이동 후 발생하는 오류</summary>
 <div markdown="1">
@@ -63,12 +69,20 @@ Targets/Build Settings/Packings/Info.plist.File 을 지워줌.
 정상적으로 빌드가 되는 것을 확인함.
 
 - **테스트 중 `Mock-up Data Decoding` 오류**
+  <<<<<<< HEAD
+
   ## 상황(Situation)
+
   서버에 GET 요청을 하여 Mocks 데이터를 조회하는 테스트 코드 작성 도중, 데이터가 Decoding 되지 못하는 상황이 발생함.
+
   ## 목표(Task)
+
   서버로부터 받은 데이터를 무사히 스위프트 구조체로 Decoding 될 수 있도록 변환하는 것
+
   ## 행동(Action)
+
   먼저, Mocks 데이터의 구조 형식을 다시 살펴봄.
+
   ```objectivec
   {
     "data": [
@@ -93,7 +107,9 @@ Targets/Build Settings/Packings/Info.plist.File 을 지워줌.
     "message": "목록 조회가 완료되었습니다"
   }
   ```
+
   그리고 나의 구조체 형식을 살펴봄.
+
   ```objectivec
   import Foundation
 
@@ -138,7 +154,9 @@ Targets/Build Settings/Packings/Info.plist.File 을 지워줌.
   }
 
   ```
+
   살펴본 결과, Mocks 데이터의 data 는 [] 로 감싸져 있는데, 구조체는 [] 감싸져 있지 않은 것이 문제의 원인임을 확인함.
+
   ```objectivec
   // Before
   let data: ToDoData?
@@ -146,8 +164,11 @@ Targets/Build Settings/Packings/Info.plist.File 을 지워줌.
   // After
   let data: [ToDoData]?
   ```
+
   ## 결과(Result) : 해결한 결과 (Image, Gif, 코드 첨부)
+
   변환 후, 테스트를 실행한 결과 정상적으로 데이터가 출력이 되는 것을 확인함.
+
   ```objectivec
   Test Suite 'All tests' started at 2024-05-18 22:40:49.140.
   Test Suite 'REST_TODOTests.xctest' started at 2024-05-18 22:40:49.141.
@@ -155,6 +176,116 @@ Targets/Build Settings/Packings/Info.plist.File 을 지워줌.
   Test Case '-[REST_TODOTests.REST_TODOTests testFetchTodos]' started.
   Todos: ToDo(data: Optional([REST_TODO.ToDoData(id: Optional(239), title: Optional("예진연구소"), isDone: nil, createdAt: nil, updatedAt: nil), REST_TODO.ToDoData(id: Optional(243), title: Optional("상욱보험"), isDone: nil, createdAt: nil, updatedAt: nil), REST_TODO.ToDoData(id: Optional(178), title: Optional("(유)소정캐피탈"), isDone: nil, createdAt: nil, updatedAt: nil), REST_TODO.ToDoData(id: Optional(203), title: Optional("(주)서연보험"), isDone: nil, createdAt: nil, updatedAt: nil), REST_TODO.ToDoData(id: Optional(207), title: Optional("도연스튜디오"), isDone: nil, createdAt: nil, updatedAt: nil), REST_TODO.ToDoData(id: Optional(216), title: Optional("예은미디어"), isDone: nil, createdAt: nil, updatedAt: nil), REST_TODO.ToDoData(id: Optional(201), title: Optional("재훈인터넷"), isDone: nil, createdAt: nil, updatedAt: nil), REST_TODO.ToDoData(id: Optional(234), title: Optional("(주)선호"), isDone: nil, createdAt: nil, updatedAt: nil), REST_TODO.ToDoData(id: Optional(204), title: Optional("민서식품"), isDone: nil, createdAt: nil, updatedAt: nil), REST_TODO.ToDoData(id: Optional(179), title: Optional("정은모바일"), isDone: nil, createdAt: nil, updatedAt: nil)]), meta: Optional(REST_TODO.ToDoMeta(currentPage: Optional(1), from: Optional(1), lastPage: Optional(25), perPage: Optional(10), to: Optional(10), total: Optional(244))), message: Optional("성공"))
   ```
+
+  =======
+
+      ## 상황(Situation)
+
+      서버에 GET 요청을 하여 Mocks 데이터를 조회하는 테스트 코드 작성 도중, 데이터가 Decoding 되지 못하는 상황이 발생함.
+
+      ## 목표(Task)
+
+      서버로부터 받은 데이터를 무사히 스위프트 구조체로 Decoding 될 수 있도록 변환하는 것
+
+      ## 행동(Action)
+
+      먼저, Mocks 데이터의 구조 형식을 다시 살펴봄.
+
+      ```objectivec
+      {
+        "data": [
+          {
+            "id": 154,
+            "title": "(주)빡코더스)",
+            "email": "test@email.com",
+            "content": "더미데이터 입니다",
+            "avatar": "https://www.gravatar.com/avatar/72b6e54c23ce447df86b15c32521c9f0.jpg?s=200&d=robohash",
+            "created_at": "2022-10-25T14:11:46.000000Z",
+            "updated_at": "2022-10-25T14:11:46.000000Z"
+          }
+        ],
+        "meta": {
+          "current_page": 1,
+          "from": 1,
+          "last_page": 16,
+          "per_page": 10,
+          "to": 10,
+          "total": 154
+        },
+        "message": "목록 조회가 완료되었습니다"
+      }
+      ```
+
+      그리고 나의 구조체 형식을 살펴봄.
+
+      ```objectivec
+      import Foundation
+
+      struct ToDo: Codable {
+          let data: ToDoData? --> 여기가 원인임.
+          let meta: ToDoMeta?
+          let message: String?
+      }
+
+      struct ToDoData: Codable {
+          let id: Int?
+          let title: String?
+          let isDone: Bool?
+          let createdAt: String?
+          let updatedAt: String?
+
+          enum CodingKeys: String, CodingKey {
+              case id
+              case title
+              case isDone = "is_done"
+              case createdAt = "created_at"
+              case updatedAt = "updated_at"
+          }
+      }
+
+      struct ToDoMeta: Codable {
+          let currentPage: Int?
+          let from: Int?
+          let lastPage: Int?
+          let perPage: Int?
+          let to: Int?
+          let total: Int?
+
+          enum CodingKeys: String, CodingKey {
+              case currentPage = "current_page"
+              case from
+              case lastPage = "last_page"
+              case perPage = "per_page"
+              case to
+              case total
+          }
+      }
+
+      ```
+
+      살펴본 결과, Mocks 데이터의 data 는 [] 로 감싸져 있는데, 구조체는 [] 감싸져 있지 않은 것이 문제의 원인임을 확인함.
+
+      ```objectivec
+      // Before
+      let data: ToDoData?
+
+      // After
+      let data: [ToDoData]?
+      ```
+
+      ## 결과(Result) : 해결한 결과 (Image, Gif, 코드 첨부)
+
+      변환 후, 테스트를 실행한 결과 정상적으로 데이터가 출력이 되는 것을 확인함.
+
+      ```objectivec
+      Test Suite 'All tests' started at 2024-05-18 22:40:49.140.
+      Test Suite 'REST_TODOTests.xctest' started at 2024-05-18 22:40:49.141.
+      Test Suite 'REST_TODOTests' started at 2024-05-18 22:40:49.141.
+      Test Case '-[REST_TODOTests.REST_TODOTests testFetchTodos]' started.
+      Todos: ToDo(data: Optional([REST_TODO.ToDoData(id: Optional(239), title: Optional("예진연구소"), isDone: nil, createdAt: nil, updatedAt: nil), REST_TODO.ToDoData(id: Optional(243), title: Optional("상욱보험"), isDone: nil, createdAt: nil, updatedAt: nil), REST_TODO.ToDoData(id: Optional(178), title: Optional("(유)소정캐피탈"), isDone: nil, createdAt: nil, updatedAt: nil), REST_TODO.ToDoData(id: Optional(203), title: Optional("(주)서연보험"), isDone: nil, createdAt: nil, updatedAt: nil), REST_TODO.ToDoData(id: Optional(207), title: Optional("도연스튜디오"), isDone: nil, createdAt: nil, updatedAt: nil), REST_TODO.ToDoData(id: Optional(216), title: Optional("예은미디어"), isDone: nil, createdAt: nil, updatedAt: nil), REST_TODO.ToDoData(id: Optional(201), title: Optional("재훈인터넷"), isDone: nil, createdAt: nil, updatedAt: nil), REST_TODO.ToDoData(id: Optional(234), title: Optional("(주)선호"), isDone: nil, createdAt: nil, updatedAt: nil), REST_TODO.ToDoData(id: Optional(204), title: Optional("민서식품"), isDone: nil, createdAt: nil, updatedAt: nil), REST_TODO.ToDoData(id: Optional(179), title: Optional("정은모바일"), isDone: nil, createdAt: nil, updatedAt: nil)]), meta: Optional(REST_TODO.ToDoMeta(currentPage: Optional(1), from: Optional(1), lastPage: Optional(25), perPage: Optional(10), to: Optional(10), total: Optional(244))), message: Optional("성공"))
+      ```
+
+  > > > > > > > 0ebe9d62ffd74106f7fecf81c5e66c90db4cbe9c
 
 </div>
 </details>
@@ -368,7 +499,9 @@ func dateFormatterForDate() -> String {
 ### 기존 Network API 처리 모델
 
 - 설명
+  <<<<<<< HEAD
   기존 모델의 **문제점**
+
   ```swift
   enum ContentType {
       case json
@@ -489,7 +622,9 @@ func dateFormatterForDate() -> String {
       }
   }
   ```
+
   위 구조의 API 모델을 사용할려면, 아래와 같은 코드로 사용해야합니다.
+
   ```swift
   func requestTodosFromServer(dto: ToDoResponseDTO) -> AnyPublisher<ToDo, any Error> {
       do {
@@ -513,11 +648,15 @@ func dateFormatterForDate() -> String {
       }
   }
   ```
+
   제일 문제라고 생각했던 부분은 아래 코드 입니다.
+
   ```swift
   let url = try NetworkAPI.requestTodos(dto: dto).asURLRequest()
   ```
+
   그리고 `GET`, `POST`, `PUT`, `DELETE` 통신은 `Parameter`, `Response` 가 달라 처리하는 함수가 여러개로 나뉘어지는 문제도 있습니다.
+
   ```swift
   protocol APIServiceProtocol {
        func requestTodosFromServer(dto: ToDoResponseDTO) -> AnyPublisher<ToDo, Error>
@@ -528,10 +667,13 @@ func dateFormatterForDate() -> String {
        func removeToDoAtServer() -> AnyPublisher<Bool, Error>
    }
   ```
+
   이런 구조다 보니, 당연히 데이터를 받아오기 위해 거쳐야 하는 단계도 많아지는 문제가 발생함
+
   > View > ViewModel Input > API Service
-  그래서 API 를 처리하는 공통의 추상화한 Protocol 을 만들고, Protocol 을 채택한 구조체들을 생성하는 방식으로 변경 하는 것을 선택하였습니다.
-  제일 먼저, 추상화한 `Protocol` 입니다. API 의 공통된 부분을 추출한 것입니다.
+  > 그래서 API 를 처리하는 공통의 추상화한 Protocol 을 만들고, Protocol 을 채택한 구조체들을 생성하는 방식으로 변경 하는 것을 선택하였습니다.
+  > 제일 먼저, 추상화한 `Protocol` 입니다. API 의 공통된 부분을 추출한 것입니다.
+
   ```swift
   protocol NetworkAPIDefinition {
       typealias URLInfo = NetworkAPI.URLInfo
@@ -544,10 +686,12 @@ func dateFormatterForDate() -> String {
       var requestInfo: RequestInfo<Parameter> { get }
   }
   ```
+
   다음 Protocol 을 구체화한 통신 API 입니다.
   왼쪽은 `GET`, 오른쪽은 `POST` 입니다.
   세세한 부분에서 차이가 있는 것이 보이십니까??
   `Parameter` 과 `URL`, `Body` 부분에서 차이가 있습니다.
+
   ```swift
   // 모든 할일 목록 가져오기 - 완료 숨김 X
   struct GETTodosAPI: NetworkAPIDefinition {
@@ -584,6 +728,7 @@ func dateFormatterForDate() -> String {
       }
   }
   ```
+
   ```swift
   // 할일 추가
   struct POSTToDoAPI: NetworkAPIDefinition {
@@ -620,10 +765,12 @@ func dateFormatterForDate() -> String {
       }
   }
   ```
+
   그리고 그 다음은 API 를 호출하는 부분 역시 변경이 이루어졌습니다.
   기존 API 는 `GET`, `POST` 와 같이 다른 통신에서는 각각의 호출함수가 있었습니다. 그러나 변경된 함수는 공통의 모듈에서 뽑아 사용하도록 설계되어 있습니다.
   왼쪽은 `(구)GET 통신`, 오른쪽은 `(현)GET 통신`입니다.
   protocol 타입을 `Generic`으로 만들어 사용했습니다.
+
   ```swift
   func requestTodosFromServer(dto: ToDoResponseDTO) -> AnyPublisher<ToDo, any Error> {
            do {
@@ -647,6 +794,7 @@ func dateFormatterForDate() -> String {
            }
        }
   ```
+
   ```swift
   func request<T: NetworkAPIDefinition>(_ api: T) -> AnyPublisher<T.Response, Error> {
           let url = api.urlInfo.url
@@ -673,11 +821,13 @@ func dateFormatterForDate() -> String {
               .eraseToAnyPublisher()
       }
   ```
+
   이런식으로 변경이 이루어지니, 어떤 API 를 사용해도 메서드가 변경될 일이 적어 에러 핸들링에 대응하기 편해졌습니다.
   두 개의 메서드가 있습니다.
   왼쪽은 `GET` 통신, 오른쪽은 `POST` 통신입니다.
   사용하는 `apiService.request(api)` 부분은 같다는 것을 알 수 있습니다.
   즉, 사용하는 api 만 다르게 하면, 다른 통신을 할 수 있다는 것입니다.
+
   ```swift
   /// ToDo 데이터 10개 호출 - 완료 숨김 X
   private func requestGETTodos() {
@@ -704,6 +854,7 @@ func dateFormatterForDate() -> String {
           .store(in: &subcriptions)
   }
   ```
+
   ```swift
   private func requestPOSTToDoAPI(title: String, isDone: Bool) {
           let dto = ToDoBodyDTO(title: title, is_Done: isDone)
@@ -725,6 +876,400 @@ func dateFormatterForDate() -> String {
               .store(in: &subcriptions)
       }
   ```
+
+  =======
+
+      기존 모델의 **문제점**
+
+      ```swift
+      enum ContentType {
+          case json
+
+          var code: String {
+              switch self {
+              case .json:
+                  return "application/json"
+              }
+          }
+      }
+
+      enum Filter: String {
+          case createdAt = "created_at"
+          case updatedAt = "updated_at"
+      }
+
+      enum Order: String {
+          case desc
+          case asc
+      }
+
+      enum HTTPMethod: String {
+          case get = "GET"
+          case post = "POST"
+          case put = "PUT"
+          case delete = "DELETE"
+      }
+
+      enum NetworkAPI {
+          case requestTodos(dto: ToDoResponseDTO) // GET - 전체 데이터 조회
+          case requestTodoWithID(id: Int)
+          case requestSearchTodos(dto: ToDoResponseDTO) // GET - ID 사용하여 데이터 조회
+          case postTodo(dto: ToDoPOSTDTO) // POST - 데이터 추가
+          case putTodo(id: Int, dto: ToDoPOSTDTO) // PUT - 데이터 수정
+          case deleteTodo(id: Int) // DELETE - 데이터 삭제
+
+          var baseURL: String {
+              return Constants.BASE_URL
+          }
+
+          var method: HTTPMethod {
+              switch self {
+              case .requestTodos, .requestTodoWithID, .requestSearchTodos:
+                  return .get
+              case .postTodo:
+                  return .post
+              case .putTodo:
+                  return .put
+              case .deleteTodo:
+                  return .delete
+              }
+          }
+
+          var path: String {
+              switch self {
+              case .requestTodos:
+                  return "/api/v2/todos"
+              case .requestTodoWithID(let id):
+                  return "/api/v2/todos/\(id)"
+              case .requestSearchTodos:
+                  return "/api/v2/todos/search"
+              case .postTodo, .putTodo, .deleteTodo:
+                  return "/api/v2/todos"
+              }
+          }
+
+          var param: [URLQueryItem] {
+              switch self {
+              case .requestTodos(let dto):
+                  return [
+                      URLQueryItem(name: "filter", value: dto.filter?.rawValue),
+                      URLQueryItem(name: "order_by", value: dto.orderBy?.rawValue),
+                      URLQueryItem(name: "page", value: dto.page?.description),
+                      URLQueryItem(name: "per_page", value: dto.perPage?.description)
+                  ]
+              case .requestTodoWithID(id: let id), .deleteTodo(let id):
+                  return [
+                      URLQueryItem(name: "id", value: id.description)
+                  ]
+              case .postTodo(let dto):
+                  return [
+                      URLQueryItem(name: "title", value: dto.title),
+                      URLQueryItem(name: "is_done", value: dto.isDone.description)
+                  ]
+
+              case .putTodo(let id, let dto):
+                  return [
+                      URLQueryItem(name: "id", value: id.description),
+                      URLQueryItem(name: "title", value: dto.title),
+                      URLQueryItem(name: "is_done", value: dto.isDone.description)
+                  ]
+              case .requestSearchTodos(let dto):
+                  return [
+                      URLQueryItem(name: "query", value: dto.query),
+                      URLQueryItem(name: "filter", value: dto.filter?.rawValue),
+                      URLQueryItem(name: "order_by", value: dto.orderBy?.rawValue),
+                      URLQueryItem(name: "page", value: dto.page?.description),
+                      URLQueryItem(name: "per_page", value: dto.perPage?.description),
+                      URLQueryItem(name: "is_done", value: dto.isDone?.description)
+                  ]
+              }
+          }
+
+          func asURLRequest() throws -> URLRequest {
+              let url = baseURL
+              var components = URLComponents(string: url)
+              components?.path = path
+              components?.queryItems = param
+
+              guard let url = components?.url else { throw URLError(.badURL) }
+
+              var request = URLRequest(url: url)
+              request.httpMethod = method.rawValue
+              request.setValue(ContentType.json.code, forHTTPHeaderField: Constants.HTTP_Header_Field)
+
+              return request
+          }
+      }
+      ```
+
+      위 구조의 API 모델을 사용할려면, 아래와 같은 코드로 사용해야합니다.
+
+      ```swift
+      func requestTodosFromServer(dto: ToDoResponseDTO) -> AnyPublisher<ToDo, any Error> {
+          do {
+              let url = try NetworkAPI.requestTodos(dto: dto).asURLRequest()
+
+              return URLSession.shared
+                  .dataTaskPublisher(for: url)
+                  .tryMap { output in
+                      guard output.response is HTTPURLResponse else {
+                          throw NetworkError.serverError(code: 0, error: "Server error")
+                      }
+                      return output.data
+                  }
+                  .decode(type: ToDo.self, decoder: JSONDecoder())
+                  .mapError { error in
+                      return NetworkError.invalidJSON(String(describing: error))
+                  }
+                  .eraseToAnyPublisher()
+          } catch {
+              return Fail(error: NetworkError.badURL("Invalid URL!")).eraseToAnyPublisher()
+          }
+      }
+      ```
+
+      제일 문제라고 생각했던 부분은 아래 코드 입니다.
+
+      ```swift
+      let url = try NetworkAPI.requestTodos(dto: dto).asURLRequest()
+      ```
+
+      그리고 `GET`, `POST`, `PUT`, `DELETE` 통신은 `Parameter`, `Response` 가 달라 처리하는 함수가 여러개로 나뉘어지는 문제도 있습니다.
+
+      ```swift
+      protocol APIServiceProtocol {
+           func requestTodosFromServer(dto: ToDoResponseDTO) -> AnyPublisher<ToDo, Error>
+           func requestQueryToDosFromServer() -> AnyPublisher<ToDo, Error>
+
+           func insertToDoToServer() -> AnyPublisher<Bool, Error>
+           func updateToDoAtServer() -> AnyPublisher<Bool, Error>
+           func removeToDoAtServer() -> AnyPublisher<Bool, Error>
+       }
+      ```
+
+      이런 구조다 보니, 당연히 데이터를 받아오기 위해 거쳐야 하는 단계도 많아지는 문제가 발생함
+
+      > View > ViewModel Input > API Service
+      >
+
+      그래서 API 를 처리하는 공통의 추상화한 Protocol 을 만들고, Protocol 을 채택한 구조체들을 생성하는 방식으로 변경 하는 것을 선택하였습니다.
+
+      제일 먼저, 추상화한 `Protocol` 입니다. API 의 공통된 부분을 추출한 것입니다.
+
+      ```swift
+      protocol NetworkAPIDefinition {
+          typealias URLInfo = NetworkAPI.URLInfo
+          typealias RequestInfo = NetworkAPI.RequestInfo
+
+          associatedtype Parameter: Encodable
+          associatedtype Response: Decodable
+
+          var urlInfo: URLInfo { get }
+          var requestInfo: RequestInfo<Parameter> { get }
+      }
+      ```
+
+      다음 Protocol 을 구체화한 통신 API 입니다.
+
+      왼쪽은 `GET`, 오른쪽은 `POST` 입니다.
+
+      세세한 부분에서 차이가 있는 것이 보이십니까??
+
+      `Parameter` 과 `URL`, `Body` 부분에서 차이가 있습니다.
+
+      ```swift
+      // 모든 할일 목록 가져오기 - 완료 숨김 X
+      struct GETTodosAPI: NetworkAPIDefinition {
+          let page: String
+          let filter: String
+          let orderBy: String
+          let perPage: String
+
+          // BODY Parameter
+          struct Parameter: Encodable {
+              // Parameters for the GET request
+          }
+
+          typealias Response = ToDos
+
+          var urlInfo: NetworkAPI.URLInfo {
+              NetworkAPI.URLInfo(
+                  host: Constants.host,
+                  path: Constants.path,
+                  query: [
+                      "page": page,
+                      "filter": filter,
+                      "order_by": orderBy,
+                      "per_page": perPage,
+                  ]
+              )
+          }
+
+          var requestInfo: NetworkAPI.RequestInfo<Parameter> {
+              NetworkAPI.RequestInfo(
+                  method: .get,
+                  headers: [Constants.accept: Constants.applicationJson]
+              )
+          }
+      }
+      ```
+
+      ```swift
+      // 할일 추가
+      struct POSTToDoAPI: NetworkAPIDefinition {
+          let dto: ToDoBodyDTO
+
+          struct Parameter: Encodable {
+              let title: String
+              let is_done: Bool
+          }
+
+          struct Response: Decodable {
+              // Response for the POST request
+          }
+
+          var urlInfo: NetworkAPI.URLInfo {
+              NetworkAPI.URLInfo(
+                  host: Constants.host,
+                  path: Constants.postPath
+              )
+          }
+
+          var requestInfo: NetworkAPI.RequestInfo<Parameter> {
+              NetworkAPI.RequestInfo(
+                  method: .post,
+                  headers: [
+                      Constants.accept: Constants.applicationJson,
+                      Constants.contentType: Constants.applicationJson,
+                  ],
+                  parameters: Parameter(
+                      title: dto.title,
+                      is_done: dto.is_Done
+                  )
+              )
+          }
+      }
+      ```
+
+      그리고 그 다음은 API 를 호출하는 부분 역시 변경이 이루어졌습니다.
+
+      기존 API 는 `GET`, `POST` 와 같이 다른 통신에서는 각각의 호출함수가 있었습니다. 그러나 변경된 함수는 공통의 모듈에서 뽑아 사용하도록 설계되어 있습니다.
+
+      왼쪽은 `(구)GET 통신`, 오른쪽은 `(현)GET 통신`입니다.
+
+      protocol 타입을 `Generic`으로 만들어 사용했습니다.
+
+      ```swift
+      func requestTodosFromServer(dto: ToDoResponseDTO) -> AnyPublisher<ToDo, any Error> {
+               do {
+                   let url = try NetworkAPI.requestTodos(dto: dto).asURLRequest()
+
+                   return URLSession.shared
+                       .dataTaskPublisher(for: url)
+                       .tryMap { output in
+                           guard output.response is HTTPURLResponse else {
+                               throw NetworkError.serverError(code: 0, error: "Server error")
+                           }
+                           return output.data
+                       }
+                       .decode(type: ToDo.self, decoder: JSONDecoder())
+                       .mapError { error in
+                           return NetworkError.invalidJSON(String(describing: error))
+                       }
+                       .eraseToAnyPublisher()
+               } catch {
+                   return Fail(error: NetworkError.badURL("Invalid URL!")).eraseToAnyPublisher()
+               }
+           }
+      ```
+
+      ```swift
+      func request<T: NetworkAPIDefinition>(_ api: T) -> AnyPublisher<T.Response, Error> {
+              let url = api.urlInfo.url
+              let request = api.requestInfo.requests(url: url)
+
+              print("#### 클래스명: \(String(describing: type(of: self))), 함수명: \(#function), Line: \(#line), 출력 Log: \(url)")
+
+              return URLSession.shared.dataTaskPublisher(for: request)
+                  .tryMap { output in
+                      guard let response = output.response as? HTTPURLResponse else {
+                          throw NetworkError.serverError(code: 0, error: "Server error")
+                      }
+                      guard (200 ... 299).contains(response.statusCode) else {
+                          throw NetworkError.serverError(code: response.statusCode, error: "Server error with code: \(response.statusCode)")
+                      }
+
+                      return output.data
+                  }
+                  .decode(type: T.Response.self, decoder: JSONDecoder())
+                  .mapError { error in
+                      return NetworkError.invalidJSON(error.localizedDescription)
+                  }
+                  .receive(on: RunLoop.main)
+                  .eraseToAnyPublisher()
+          }
+      ```
+
+      이런식으로 변경이 이루어지니, 어떤 API 를 사용해도 메서드가 변경될 일이 적어 에러 핸들링에 대응하기 편해졌습니다.
+
+      두 개의 메서드가 있습니다.
+
+      왼쪽은 `GET` 통신, 오른쪽은 `POST` 통신입니다.
+
+      사용하는 `apiService.request(api)` 부분은 같다는 것을 알 수 있습니다.
+
+      즉, 사용하는 api 만 다르게 하면, 다른 통신을 할 수 있다는 것입니다.
+
+      ```swift
+      /// ToDo 데이터 10개 호출 - 완료 숨김 X
+      private func requestGETTodos() {
+          let api = GETTodosAPI(
+              page: page.description,
+              filter: Filter.createdAt.rawValue,
+              orderBy: Order.desc.rawValue,
+              perPage: 10.description
+          )
+
+          apiService.request(api)
+              .sink { completion in
+                  switch completion {
+                  case .failure(let error):
+                      print("#### Error fetching todos: \(error)")
+                      self.output.send(.sendError(error: error))
+                  case .finished:
+                      print("#### Finished \(completion)")
+                  }
+              } receiveValue: { [weak self] response in
+                  self?.todos = response.data
+                  self?.output.send(.showGETTodos(todos: response.data ?? []))
+              }
+              .store(in: &subcriptions)
+      }
+      ```
+
+      ```swift
+      private func requestPOSTToDoAPI(title: String, isDone: Bool) {
+              let dto = ToDoBodyDTO(title: title, is_Done: isDone)
+              let api = POSTToDoAPI(dto: dto)
+
+              apiService.request(api)
+                  .sink { completion in
+                      switch completion {
+                      case .failure(let error):
+                          print("#### Error Posting todo: \(error)")
+                          self.output.send(.sendError(error: error))
+                      case .finished:
+                          print("#### Finished \(completion)")
+                      }
+                  } receiveValue: { [weak self] response in
+                      guard let self = self else { return }
+                      output.send(.dismissView)
+                  }
+                  .store(in: &subcriptions)
+          }
+      ```
+
+> > > > > > > 0ebe9d62ffd74106f7fecf81c5e66c90db4cbe9c
 
 위와 같은 과정을 거쳐, 공통 API 모듈을 만들어 사용하게 되었습니다.
 
@@ -772,7 +1317,11 @@ func configure(todo: ToDoData) {
           guard let self = self, let todo = self.todo else { return }
           delegate?.didTapCheckBox(todo: todo)
       }), for: .touchUpInside)
+<<<<<<< HEAD
 
+=======
+
+>>>>>>> 0ebe9d62ffd74106f7fecf81c5e66c90db4cbe9c
       let favoriteImageConfig = UIImage.SymbolConfiguration(pointSize: 30, weight: .light)
       let favoriteImage = UIImage(systemName: "star", withConfiguration: favoriteImageConfig)
 
@@ -781,7 +1330,10 @@ func configure(todo: ToDoData) {
 ```
 
 - 변경된 사항
-  - 기존의 configure에 선언된 addAction 함수를 UI 생성하는 곳으로 옮김.
+  <<<<<<< HEAD
+  - # 기존의 configure에 선언된 addAction 함수를 UI 생성하는 곳으로 옮김.
+        - 기존의 configure에 선언된 addAction 함수를 UI 생성하는 곳으로 옮김.
+    > > > > > > > 0ebe9d62ffd74106f7fecf81c5e66c90db4cbe9c
 
 ```swift
 private func configureCheckBox() {
@@ -1286,7 +1838,7 @@ DB 에 내가 만든 String 값을 넣은 후 실행, 그리고 DB에 일치하�
 
 </div>
 </details>
-
+<<<<<<< HEAD
 
 <details>
 <summary>생성한 Network 통신 API 관리 문제</summary>
@@ -1374,3 +1926,5 @@ let api = ToDoAPI.getTodos(page: page).api as! GETTodosAPI
 
 </div>
 </details>
+=======
+>>>>>>> 0ebe9d62ffd74106f7fecf81c5e66c90db4cbe9c
