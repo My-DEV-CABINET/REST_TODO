@@ -38,12 +38,6 @@ REST API 를 사용하여 나만의 할 일을 만들 수 있습니다.
 
 ## 💣Trouble Shooting
 
-<<<<<<< HEAD
-
-=======
-
-> > > > > > > 0ebe9d62ffd74106f7fecf81c5e66c90db4cbe9c
-
 <details>
 <summary>Info.plist 위치 이동 후 발생하는 오류</summary>
 <div markdown="1">
@@ -69,7 +63,7 @@ Targets/Build Settings/Packings/Info.plist.File 을 지워줌.
 정상적으로 빌드가 되는 것을 확인함.
 
 - **테스트 중 `Mock-up Data Decoding` 오류**
-  <<<<<<< HEAD
+
 
   ## 상황(Situation)
 
@@ -177,8 +171,6 @@ Targets/Build Settings/Packings/Info.plist.File 을 지워줌.
   Todos: ToDo(data: Optional([REST_TODO.ToDoData(id: Optional(239), title: Optional("예진연구소"), isDone: nil, createdAt: nil, updatedAt: nil), REST_TODO.ToDoData(id: Optional(243), title: Optional("상욱보험"), isDone: nil, createdAt: nil, updatedAt: nil), REST_TODO.ToDoData(id: Optional(178), title: Optional("(유)소정캐피탈"), isDone: nil, createdAt: nil, updatedAt: nil), REST_TODO.ToDoData(id: Optional(203), title: Optional("(주)서연보험"), isDone: nil, createdAt: nil, updatedAt: nil), REST_TODO.ToDoData(id: Optional(207), title: Optional("도연스튜디오"), isDone: nil, createdAt: nil, updatedAt: nil), REST_TODO.ToDoData(id: Optional(216), title: Optional("예은미디어"), isDone: nil, createdAt: nil, updatedAt: nil), REST_TODO.ToDoData(id: Optional(201), title: Optional("재훈인터넷"), isDone: nil, createdAt: nil, updatedAt: nil), REST_TODO.ToDoData(id: Optional(234), title: Optional("(주)선호"), isDone: nil, createdAt: nil, updatedAt: nil), REST_TODO.ToDoData(id: Optional(204), title: Optional("민서식품"), isDone: nil, createdAt: nil, updatedAt: nil), REST_TODO.ToDoData(id: Optional(179), title: Optional("정은모바일"), isDone: nil, createdAt: nil, updatedAt: nil)]), meta: Optional(REST_TODO.ToDoMeta(currentPage: Optional(1), from: Optional(1), lastPage: Optional(25), perPage: Optional(10), to: Optional(10), total: Optional(244))), message: Optional("성공"))
   ```
 
-  =======
-
       ## 상황(Situation)
 
       서버에 GET 요청을 하여 Mocks 데이터를 조회하는 테스트 코드 작성 도중, 데이터가 Decoding 되지 못하는 상황이 발생함.
@@ -284,8 +276,6 @@ Targets/Build Settings/Packings/Info.plist.File 을 지워줌.
       Test Case '-[REST_TODOTests.REST_TODOTests testFetchTodos]' started.
       Todos: ToDo(data: Optional([REST_TODO.ToDoData(id: Optional(239), title: Optional("예진연구소"), isDone: nil, createdAt: nil, updatedAt: nil), REST_TODO.ToDoData(id: Optional(243), title: Optional("상욱보험"), isDone: nil, createdAt: nil, updatedAt: nil), REST_TODO.ToDoData(id: Optional(178), title: Optional("(유)소정캐피탈"), isDone: nil, createdAt: nil, updatedAt: nil), REST_TODO.ToDoData(id: Optional(203), title: Optional("(주)서연보험"), isDone: nil, createdAt: nil, updatedAt: nil), REST_TODO.ToDoData(id: Optional(207), title: Optional("도연스튜디오"), isDone: nil, createdAt: nil, updatedAt: nil), REST_TODO.ToDoData(id: Optional(216), title: Optional("예은미디어"), isDone: nil, createdAt: nil, updatedAt: nil), REST_TODO.ToDoData(id: Optional(201), title: Optional("재훈인터넷"), isDone: nil, createdAt: nil, updatedAt: nil), REST_TODO.ToDoData(id: Optional(234), title: Optional("(주)선호"), isDone: nil, createdAt: nil, updatedAt: nil), REST_TODO.ToDoData(id: Optional(204), title: Optional("민서식품"), isDone: nil, createdAt: nil, updatedAt: nil), REST_TODO.ToDoData(id: Optional(179), title: Optional("정은모바일"), isDone: nil, createdAt: nil, updatedAt: nil)]), meta: Optional(REST_TODO.ToDoMeta(currentPage: Optional(1), from: Optional(1), lastPage: Optional(25), perPage: Optional(10), to: Optional(10), total: Optional(244))), message: Optional("성공"))
       ```
-
-  > > > > > > > 0ebe9d62ffd74106f7fecf81c5e66c90db4cbe9c
 
 </div>
 </details>
@@ -499,7 +489,6 @@ func dateFormatterForDate() -> String {
 ### 기존 Network API 처리 모델
 
 - 설명
-  <<<<<<< HEAD
   기존 모델의 **문제점**
 
   ```swift
@@ -876,8 +865,6 @@ func dateFormatterForDate() -> String {
               .store(in: &subcriptions)
       }
   ```
-
-  =======
 
       기존 모델의 **문제점**
 
@@ -1269,8 +1256,6 @@ func dateFormatterForDate() -> String {
           }
       ```
 
-> > > > > > > 0ebe9d62ffd74106f7fecf81c5e66c90db4cbe9c
-
 위와 같은 과정을 거쳐, 공통 API 모듈을 만들어 사용하게 되었습니다.
 
 </div>
@@ -1317,11 +1302,7 @@ func configure(todo: ToDoData) {
           guard let self = self, let todo = self.todo else { return }
           delegate?.didTapCheckBox(todo: todo)
       }), for: .touchUpInside)
-<<<<<<< HEAD
 
-=======
-
->>>>>>> 0ebe9d62ffd74106f7fecf81c5e66c90db4cbe9c
       let favoriteImageConfig = UIImage.SymbolConfiguration(pointSize: 30, weight: .light)
       let favoriteImage = UIImage(systemName: "star", withConfiguration: favoriteImageConfig)
 
@@ -1330,10 +1311,9 @@ func configure(todo: ToDoData) {
 ```
 
 - 변경된 사항
-  <<<<<<< HEAD
+
   - # 기존의 configure에 선언된 addAction 함수를 UI 생성하는 곳으로 옮김.
         - 기존의 configure에 선언된 addAction 함수를 UI 생성하는 곳으로 옮김.
-    > > > > > > > 0ebe9d62ffd74106f7fecf81c5e66c90db4cbe9c
 
 ```swift
 private func configureCheckBox() {
